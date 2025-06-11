@@ -52,8 +52,8 @@
         <td>Oscar Gonzalez</td>
         <td>Cliente Frecuente</td>
         <td>50</td>
-         <td>200</td>
-            <td>🟩🟩</td>
+         <td>300</td>
+            <td>🟩🟩🟩</td>
 
       </tr>
       <tr>

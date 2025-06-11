@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tabla de Datos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+    }
+    table {
+      width: 80%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      background-color: #fff;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Osplay</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Categoria</th>
+        <th>Total de playeras</th>
+         <th>Total de Compras</th>
+         <th>Conteo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Oscar Gonzalez</td>
+        <td>Cliente Frecuente</td>
+        <td>50</td>
+         <td>100</td>
+            <td>🟩</td>
+
+      </tr>
+      <tr>
+         <td>2</td>
+        <td>Ana de la torre</td>
+        <td>Cliente Frecuente</td>
+        <td>500</td>
+         <td>1000</td>
+         <td>🟩🟩</td>
+
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
 

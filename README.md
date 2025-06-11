@@ -3,70 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tabla de Datos</title>
+  <title>Generador de QR y Puntos</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f4f4f4;
-    }
-    h1 {
+      margin: 0;
+      padding: 20px;
       text-align: center;
     }
-    table {
-      width: 80%;
-      margin: 0 auto;
-      border-collapse: collapse;
-      background-color: #fff;
+    .container {
+      margin-top: 50px;
     }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 12px;
-      text-align: center;
+    .qr-code {
+      margin-top: 20px;
+      margin-bottom: 30px;
     }
-    th {
-      background-color: #007BFF;
+    .points {
+      font-size: 20px;
+    }
+    .button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
       color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
     }
-    tr:nth-child(even) {
-      background-color: #f2f2f2;
+    .button:hover {
+      background-color: #45a049;
+    }
+    .password-section {
+      margin-top: 30px;
     }
   </style>
 </head>
 <body>
-  <h1>Clientes</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Categoria</th>
-        <th>Total de playeras</th>
-         <th>Total de Compras</th>
-         <th>Conteo</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Oscar Gonzalez</td>
-        <td>Cliente Frecuente</td>
-        <td>50</td>
-         <td>300</td>
-            <td>🟩🟩🟩</td>
+  <h1>Bienvenido a nuestro sistema de puntos</h1>
+  <div class="container">
+    <h2>Tu código QR</h2>
+    <div id="qrcode" class="qr-code"></div>
+    
+    <div class="points">
+      <p>Puntos acumulados: <span id="points">0</span></p>
+    </div>
 
-      </tr>
-      <tr>
-         <td>2</td>
-        <td>Ana de la torre</td>
-        <td>Cliente Frecuente</td>
-        <td>500</td>
-         <td>1000</td>
-         <td>🟩🟩</td>
+    <div class="password-section">
+      <input type="password" id="password" placeholder="Contraseña del dueño" />
+      <button class="button" onclick="verificarContraseña()">Acceder como dueño</button>
+    </div>
 
-      </tr>
-    </tbody>
-  </table>
+    <button id="acumularPuntosBtn" class="button" style="display:none;" onclick="acumularPuntos()">Acumular 10 puntos</button>
+  </div>
+
+  <script>
+    // Generar un ID único para el cliente
+    const clienteId = 'cliente-' + Math.random().toString(36).substr(2, 9);
+
+    // Cargar el cliente desde localStorage si existe
+    let cliente = JSON.parse(localStorage.getItem(clienteId));
+
+    if (!cliente) {
+      cliente = { points: 0 }; // Si no existe, inicializar los puntos a 0
+      localStorage.setItem(clienteId, JSON.stringify(cliente)); // Guardarlo
+    }
+
+    // Cargar los puntos almacenados
+    document.getElementById('points').innerText = cliente.points;
+
+    // Generar el código QR con el ID único del cliente
+    QRCode.toCanvas(document.getElementById('qrcode'), clienteId, function (error) {
+      if (error) console.error(error);
+    });
+
+    // Contraseña del dueño
+    const contraseñaDueño = "dueño123";  // Aquí puedes cambiar la contraseña
+
+    // Función para verificar la contraseña
+    function verificarContraseña() {
+      const passwordInput = document.getElementById('password').value;
+      if (passwordInput === contraseñaDueño) {
+        alert("Acceso permitido");
+        document.getElementById('acumularPuntosBtn').style.display = 'inline-block';  // Mostrar el botón
+      } else {
+        alert("Contraseña incorrecta");
+      }
+    }
+
+    // Función para acumular puntos
+    function acumularPuntos() {
+      cliente.points += 10; // Acumular 10 puntos
+      localStorage.setItem(clienteId, JSON.stringify(cliente)); // Guardar los puntos en localStorage
+      document.getElementById('points').innerText = cliente.points;
+    }
+  </script>
 </body>
 </html>
-
